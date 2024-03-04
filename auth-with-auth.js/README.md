@@ -111,7 +111,7 @@ export const useAuth = () => {
 };
 ```
 
-### 7. Usage in a server component
+### 8. Usage in a server component
 
 ```tsx
 import { auth } from '@/auth';
@@ -135,7 +135,7 @@ export default async function ProfilePage() {
 }
 ```
 
-### 8. Usage in a client component
+### 9. Usage in a client component
 
 ```tsx
 'use client';
