@@ -1,29 +1,3 @@
-# Next.js Demos - Object Storage
-
-This is a example of how to use AWS S3 to store objects in Next.js.
-
-## Setup
-
-### 1. Install the libraries
-
-```bash
-npm i @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
-```
-
-### 2. Add the environment variables
-
-```bash
-S3_ENDPOINT="https://*****.r2.cloudflarestorage.com"
-S3_REGION="enam"
-S3_ACCESS_KEY_ID="*****"
-S3_SECRET_ACCESS_KEY="*****"
-S3_BUCKET_NAME="demo"
-S3_BUCKET_PUBLIC_URL="https://pub-*****.r2.dev"
-```
-
-### 3. Create the storage utility file `src/utils/storage.ts`
-
-```typescript
 import * as S3 from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { NextRequest, NextResponse } from 'next/server';
@@ -334,48 +308,3 @@ export async function GET(
     }
   }
 }
-```
-
-### 4. Create the API routes `src/app/api/[...storage]/route.ts`
-
-```typescript
-export { GET, POST } from '@/utils/storage';
-```
-
-## Usage
-
-### 1. List objects
-
-```typescript
-import { StorageClient } from '@/utils/storage';
-
-const objects = await StorageClient.listObjects();
-console.log(objects); // Array<StorageObject>
-```
-
-### 2. Upload an object
-
-```typescript
-import { StorageClient } from '@/utils/storage';
-
-const file = new File(['Hello, World!'], 'hello.txt', { type: 'text/plain' });
-const object = await StorageClient.putObject(file, 'docs/hello.txt');
-console.log(object); // StorageObject
-```
-
-### 3. Delete an object
-
-```typescript
-import { StorageClient } from '@/utils/storage';
-
-const response = await StorageClient.deleteObject('docs/hello.txt');
-console.log(response); // { $metadata: { httpStatusCode: 204 } }
-```
-
-### 4. Download an object
-
-```typescript
-import { StorageClient } from '@/utils/storage';
-
-StorageClient.downloadObject('docs/hello.txt'); // Opens the download dialog
-```
